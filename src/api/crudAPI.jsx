@@ -6,7 +6,7 @@ export async function getItem() {
   );
   return data;
 }
-
+//วิธีที่ 1: Closure Pattern
 export async function getItemId(id) {
   const { data } = await api.get(
     `/users/fe107daa-4bd0-488b-82ce-5d2b018bf029/notes/${id}`,
@@ -14,18 +14,28 @@ export async function getItemId(id) {
   return data;
 }
 
-export async function postItem(newItem) {
-  const { data } = await api.post(
-    '/users/fe107daa-4bd0-488b-82ce-5d2b018bf029/notes',
-    newItem,
+//วิธีที่ 2: Query Context Pattern (React Query Style)
+export async function getItemId2({ queryKey }) {
+  const [, id] = queryKey;
+
+  const { data } = await api.get(
+    `/users/fe107daa-4bd0-488b-82ce-5d2b018bf029/notes/${id}`,
   );
   return data;
 }
 
-export async function editItem(id, updateItem) {
+export async function postItem({ title, content }) {
+  const { data } = await api.post(
+    '/users/fe107daa-4bd0-488b-82ce-5d2b018bf029/notes',
+    { title, content },
+  );
+  return data;
+}
+
+export async function editItem({ id, title, content }) {
   const { data } = await api.patch(
     `/users/fe107daa-4bd0-488b-82ce-5d2b018bf029/notes/${id}`,
-    updateItem,
+    { title, content },
   );
   return data;
 }

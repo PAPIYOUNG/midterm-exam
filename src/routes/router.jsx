@@ -6,16 +6,16 @@ import { EditItem } from '../pages/EditItem';
 
 export const router = createBrowserRouter([
   {
-    path: '/notes',
+    path: '/',
     element: <RootLayout />,
     children: [
       { index: true, element: <HomePage /> },
       {
-        path: '/notes/new',
+        path: '/new',
         element: <CreateItem />,
       },
       {
-        path: '/notes/:noteId/edit',
+        path: '/:noteId/edit',
         element: <EditItem />,
       },
     ],

@@ -5,7 +5,7 @@ export default function ItemForm({ id, title, content, update }) {
   //BUTTON EDIT
   const navigate = useNavigate();
   const handleEdit = () => {
-    navigate(`/notes/${id}/edit`);
+    navigate(`/${id}/edit`);
   };
 
   //BUTTON DELETE
@@ -22,7 +22,7 @@ export default function ItemForm({ id, title, content, update }) {
           <button className="border p-1" onClick={handleEdit}>
             EDIT
           </button>
-          <button className="border p-1" onClick={handleDelete}>
+          <button className="border p-1 bg-red-500" onClick={handleDelete}>
             DELETE
           </button>
         </div>

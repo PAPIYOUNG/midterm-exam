@@ -11,7 +11,7 @@ export default function CreateBar() {
         <p>Search, create, update, and delete notes.</p>
       </div>
       <div>
-        <button onClick={() => navigate('/notes/new')} className="border p-1.5">
+        <button onClick={() => navigate('/new')} className="border p-1.5">
           + CREATE NOTES
         </button>
       </div>

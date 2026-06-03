@@ -1,6 +1,5 @@
 import { useParams } from 'react-router';
-// import { useGetItemId } from '../hook/crudFn';
-import { useEditItem, useGetItem } from '../hook/crudFn';
+import { useEditItem, useGetItemId } from '../hook/crudFn';
 import { Link } from 'react-router';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
@@ -11,26 +10,26 @@ export function EditItem() {
   const [content, setContent] = useState('');
   const navigate = useNavigate();
   const editItem = useEditItem();
-
   const { noteId } = useParams();
   console.log(noteId);
 
-  const { data: items = [], isLoading, isError } = useGetItem();
+  const { data: items = [], isLoading, isError } = useGetItemId(noteId);
+
+  const item = items?.data;
+  useEffect(() => {
+    if (item) {
+      setTitle(item.title);
+      setContent(item.content);
+    }
+  }, [item]);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
+
   if (isError) {
     return <div>Error...</div>;
   }
-  console.log(items.data.items[0]);
-
-  const problem = items.data.items.filter((n) => n.id == noteId);
-  console.log(problem);
-
-  // useEffect(() => {
-  //   setTitle(problem.title);
-  //   setContent(problem.content);
-  // }, [problem.title, problem.content]);
 
   return (
     <div className="flex flex-col w-250 m-auto justify-center gap-10 p-10">
@@ -57,7 +56,7 @@ export function EditItem() {
         />
 
         <div className="flex justify-between">
-          <Link className="border p-1" to="/notes">
+          <Link className="border p-1" to="/">
             ⬅︎ BACK
           </Link>
           <button
@@ -66,14 +65,12 @@ export function EditItem() {
               editItem.mutate(
                 {
                   id: noteId,
-                  updateData: {
-                    title: title,
-                    content: content,
-                  },
+                  title: title,
+                  content: content,
                 },
                 {
                   onSuccess: () => {
-                    navigate('/notes');
+                    navigate('/');
                   },
                 },
               );

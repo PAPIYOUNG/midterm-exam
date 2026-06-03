@@ -11,13 +11,21 @@ export default function ItemList({ search }) {
     return <div>Error...</div>;
   }
 
-  console.log(items);
+  // console.log(items);
   const data = items.data.items;
-  console.log(data);
+  // console.log(data);
+
+  //SEARCH
+  // n.title.includes('') เป็น true จะผ่านทุกตัว
+  const filteredData = data.filter(
+    (n) =>
+      n.title.toLowerCase().includes(search.trim().toLowerCase()) ||
+      n.content.toLowerCase().includes(search.trim().toLowerCase()),
+  );
 
   return (
     <ul className="grid grid-cols-2 gap-5 justify-between items-center m-auto">
-      {data.map((n) => {
+      {filteredData.map((n) => {
         return (
           <ItemForm
             key={n.id}
@@ -25,10 +33,11 @@ export default function ItemList({ search }) {
             title={n.title}
             content={n.content}
             update={n.updatedAt}
-            search={search}
           />
         );
       })}
+
+      {}
     </ul>
   );
 }
