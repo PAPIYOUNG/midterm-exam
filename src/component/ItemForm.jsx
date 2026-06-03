@@ -1,11 +1,17 @@
 import { useNavigate } from 'react-router';
 import { useDeleteItem } from '../hook/crudFn';
+import { useState } from 'react';
 
 export default function ItemForm({ id, title, content, update }) {
-  // const navigation = useNavigation();
-  // const handleEdit={
-  //   (id)=>{navigation.navigate(`/notes/${id}/edit`)}
-  // }
+  //BUTTON EDIT
+  const navigate = useNavigate();
+
+  const handleEdit = (e) => {
+    console.log(e.target.value);
+    navigate(`/notes/${id}/edit`, {
+      id: id,
+    });
+  };
 
   //BUTTON DELETE
   const deleteItem = useDeleteItem();
@@ -18,7 +24,9 @@ export default function ItemForm({ id, title, content, update }) {
       <div className="flex justify-between">
         <p className="">NOTE</p>
         <div className="flex justify-between gap-3">
-          <button className="border p-1">EDIT</button>
+          <button className="border p-1" onClick={handleEdit}>
+            EDIT
+          </button>
           <button className="border p-1" onClick={handleDelete}>
             DELETE
           </button>
