@@ -1,7 +1,7 @@
 import { useGetItem } from '../hook/crudFn';
 import ItemForm from './ItemForm';
 
-export default function ItemList() {
+export default function ItemList({ search }) {
   const { data: items = [], isLoading, isError } = useGetItem();
 
   if (isLoading) {
@@ -14,6 +14,7 @@ export default function ItemList() {
   console.log(items);
   const data = items.data.items;
   console.log(data);
+
   return (
     <ul className="grid grid-cols-2 gap-5 justify-between items-center m-auto">
       {data.map((n) => {
@@ -24,6 +25,7 @@ export default function ItemList() {
             title={n.title}
             content={n.content}
             update={n.updatedAt}
+            search={search}
           />
         );
       })}
