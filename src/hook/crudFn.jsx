@@ -18,7 +18,7 @@ export function useGetItem() {
 export function useGetItemId() {
   return useQuery({
     queryKey: ['cache'],
-    queryFn: getItemId,
+    queryFn: (id) => getItemId(id),
   });
 }
 

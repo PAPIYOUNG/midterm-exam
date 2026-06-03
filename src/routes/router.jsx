@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router';
 import HomePage from '../pages/HomePage';
 import RootLayout from '../layout/RootLayout';
 import CreateItem from '../pages/CreateItem';
-import EditItem from '../pages/EditItem';
+import { EditItem } from '../pages/EditItem';
 
 export const router = createBrowserRouter([
   {

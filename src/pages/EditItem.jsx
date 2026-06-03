@@ -1,3 +1,89 @@
-export default function EditItem() {
-  return <div>EditTodo</div>;
+import { useParams } from 'react-router';
+// import { useGetItemId } from '../hook/crudFn';
+import { useEditItem, useGetItem } from '../hook/crudFn';
+import { Link } from 'react-router';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
+
+export function EditItem() {
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const navigate = useNavigate();
+  const editItem = useEditItem();
+
+  const { noteId } = useParams();
+  console.log(noteId);
+
+  const { data: items = [], isLoading, isError } = useGetItem();
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (isError) {
+    return <div>Error...</div>;
+  }
+  console.log(items.data.items[0]);
+
+  const problem = items.data.items.filter((n) => n.id == noteId);
+  console.log(problem);
+
+  // useEffect(() => {
+  //   setTitle(problem.title);
+  //   setContent(problem.content);
+  // }, [problem.title, problem.content]);
+
+  return (
+    <div className="flex flex-col w-250 m-auto justify-center gap-10 p-10">
+      <div>
+        <h1 className="text-3xl font-bold">Edit Note</h1>
+        <p>Update fields for this note.</p>
+      </div>
+      <div className="border flex flex-col p-5 gap-2">
+        <p>Note content</p>
+        <p>Use a clear title and add the detail you want to keep.</p>
+        <label>title (หัวข้อ) *</label>
+        <input
+          className="border p-2"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <label>content (เนื้อหา) *</label>
+        <textarea
+          rows="5"
+          cols="40"
+          className="border"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
+
+        <div className="flex justify-between">
+          <Link className="border p-1" to="/notes">
+            ⬅︎ BACK
+          </Link>
+          <button
+            className="border p-1"
+            onClick={() => {
+              editItem.mutate(
+                {
+                  id: noteId,
+                  updateData: {
+                    title: title,
+                    content: content,
+                  },
+                },
+                {
+                  onSuccess: () => {
+                    navigate('/notes');
+                  },
+                },
+              );
+            }}
+          >
+            {' '}
+            📂 SAVE CHANGE
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }

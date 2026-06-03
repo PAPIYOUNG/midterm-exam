@@ -1,16 +1,11 @@
 import { useNavigate } from 'react-router';
 import { useDeleteItem } from '../hook/crudFn';
-import { useState } from 'react';
 
 export default function ItemForm({ id, title, content, update }) {
   //BUTTON EDIT
   const navigate = useNavigate();
-
-  const handleEdit = (e) => {
-    console.log(e.target.value);
-    navigate(`/notes/${id}/edit`, {
-      id: id,
-    });
+  const handleEdit = () => {
+    navigate(`/notes/${id}/edit`);
   };
 
   //BUTTON DELETE
