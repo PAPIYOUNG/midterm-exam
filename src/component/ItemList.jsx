@@ -15,7 +15,7 @@ export default function ItemList() {
   const data = items.data.items;
   console.log(data);
   return (
-    <ul className="grid grid-cols-2 gap-5 w-250 justify-center items-center m-auto">
+    <ul className="grid grid-cols-2 gap-5 justify-between items-center m-auto">
       {data.map((n) => {
         return (
           <ItemForm

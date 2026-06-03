@@ -4,7 +4,7 @@ import ItemList from '../component/ItemList';
 
 export default function HomePage() {
   return (
-    <div>
+    <div className="flex flex-col gap-5 w-250 m-auto justify-center">
       <CreateBar />
       <SearchBar />
       <ItemList />
